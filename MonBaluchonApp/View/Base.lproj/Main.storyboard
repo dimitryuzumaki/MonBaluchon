@@ -175,7 +175,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other language 😊 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZS-Vo-bsA">
-                                                <rect key="frame" x="20" y="24" width="154" height="20.5"/>
+                                                <rect key="frame" x="20" y="24" width="394" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -185,10 +185,10 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Jws-Qc-CGn" secondAttribute="trailing" constant="20" id="4mm-mS-oG5"/>
                                             <constraint firstItem="dZS-Vo-bsA" firstAttribute="top" secondItem="aT9-Ch-FdL" secondAttribute="top" constant="24" id="DfS-O8-znd"/>
-                                            <constraint firstItem="dZS-Vo-bsA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aT9-Ch-FdL" secondAttribute="leading" constant="2" id="MqY-WN-yY0"/>
+                                            <constraint firstItem="dZS-Vo-bsA" firstAttribute="leading" secondItem="aT9-Ch-FdL" secondAttribute="leading" constant="20" id="MqY-WN-yY0"/>
                                             <constraint firstItem="Jws-Qc-CGn" firstAttribute="leading" secondItem="aT9-Ch-FdL" secondAttribute="leading" constant="20" id="NfG-y8-XuS"/>
                                             <constraint firstAttribute="bottom" secondItem="Jws-Qc-CGn" secondAttribute="bottom" constant="20" id="Spo-YO-Yd3"/>
-                                            <constraint firstAttribute="trailing" secondItem="dZS-Vo-bsA" secondAttribute="trailing" constant="240" id="cTV-wp-2SL"/>
+                                            <constraint firstAttribute="trailing" secondItem="dZS-Vo-bsA" secondAttribute="trailing" id="cTV-wp-2SL"/>
                                             <constraint firstItem="Jws-Qc-CGn" firstAttribute="top" secondItem="dZS-Vo-bsA" secondAttribute="bottom" constant="34" id="sMe-nR-8Q5"/>
                                         </constraints>
                                     </view>

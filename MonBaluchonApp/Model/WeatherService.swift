@@ -8,18 +8,30 @@
 import Foundation
 
 final class WeatherService {
+    // MARK: - Properties
     
     private let session : URLSession
     private var task : URLSessionDataTask?
     
+    // MARK: - Initializer
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
     }
     
+    // MARK: - Callback
+    
     func getWeather(callback: @escaping (Result<[List],NetworkError>)-> Void){
-        guard let url = URL(string: "http://api.openweathermap.org/data/2.5/group?id=5128638,2968815&units=metric&APPID=c7c391fd6f298f38c64cd083cded3382") else {
-            return
-        }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.openweathermap.org"
+        urlComponents.path = "/data/2.5/group"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "id", value: "5128638,2968815"),
+            URLQueryItem(name: "units", value: "metric"),
+            URLQueryItem(name: "lang", value: "fr"),
+            URLQueryItem(name: "appid", value: "c7c391fd6f298f38c64cd083cded3382")
+        ]
+        guard let url = urlComponents.url else {return}
         task?.cancel()
         task = session.dataTask(with: url, completionHandler: { data, response, error in
             guard let data = data, error == nil else {
@@ -40,8 +52,5 @@ final class WeatherService {
         })
         task?.resume()
         
-        
     }
-    
-    
 }

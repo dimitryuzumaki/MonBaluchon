@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Properties
 struct GoogleTranslate: Codable {
     let data: DataClass
 }

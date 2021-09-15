@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Properties
+
 struct Money: Decodable {
     let rates: [String: Double]
 }

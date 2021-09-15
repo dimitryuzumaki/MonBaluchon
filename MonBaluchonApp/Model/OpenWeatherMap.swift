@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Properties
+
 struct OpenWeatherMap: Codable {
     let list: [List]
 }

@@ -7,22 +7,34 @@
 
 import Foundation
 
-import Foundation
-
 final class TranslateService {
     
+    // MARK: - Properties
     private let session : URLSession
     private var task : URLSessionDataTask?
     
+    // MARK: - Initializer
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
     }
     
-    func getTranslation(text: String, callback: @escaping (Result<String,NetworkError>)-> Void) {
-        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        guard let url = URL(string: "https://www.googleapis.com/language/translate/v2?key=AIzaSyCloEtJkAJnK4FLAnD5t4clDKnvGRqYB4I&target=en&format=text&q=\(encodedText)") else {
-            return
-        }
+    // MARK: - CallBack
+    func getTranslation(text: String,
+                        callback: @escaping (Result<String,NetworkError>)-> Void) {
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "translation.googleapis.com"
+        urlComponents.path = "/language/translate/v2"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "q", value: text),
+            URLQueryItem(name: "format", value: "text"),
+            URLQueryItem(name: "source", value: text),
+            URLQueryItem(name: "target", value: "en"),
+            URLQueryItem(name: "key", value: "AIzaSyCloEtJkAJnK4FLAnD5t4clDKnvGRqYB4I")
+        ]
+        guard let url = urlComponents.url else {return}
+        
         task?.cancel()
         task = session.dataTask(with: url, completionHandler: { data, response, error in
             guard let data = data, error == nil else {
@@ -33,13 +45,11 @@ final class TranslateService {
                 callback(.failure(.badResponse))
                 return
             }
-            
             guard let jsonDecoded = try? JSONDecoder().decode(GoogleTranslate.self, from: data) else {
                 callback(.failure(.undecodableData))
                 return
             }
             callback(.success(jsonDecoded.data.translations[0].translatedText))
-            
         })
         task?.resume()
     }

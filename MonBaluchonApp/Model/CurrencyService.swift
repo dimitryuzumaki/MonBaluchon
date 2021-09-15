@@ -25,11 +25,19 @@ final class CurrencyService {
         self.session = session
     }
     
+    // MARK: - CallBack
     
     func getRate(callback: @escaping (Result<Double,NetworkError>) -> Void){
-        guard let url = URL(string: "http://data.fixer.io/api/latest?access_key=e297fa3045dfcecd4bd53515d93316ec") else {
-            return
-        }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "http"
+        urlComponents.host = "data.fixer.io"
+        urlComponents.path = "/latest"
+        urlComponents.queryItems = [
+            
+            URLQueryItem(name: "access_key", value: "e297fa3045dfcecd4bd53515d93316ec")
+        ]
+        guard let url = urlComponents.url else {return}
+        
         task?.cancel()
         task = session.dataTask(with: url, completionHandler: { data, response, error in
             guard let data = data, error == nil else {
@@ -45,7 +53,8 @@ final class CurrencyService {
                 callback(.failure(.undecodableData))
                 return
             }
-            callback(.success(jsonDecoded.rates["USD"] ?? 0))
+            guard let rate = jsonDecoded.rates["USD"] else {return}
+            callback(.success(rate))
         })
         task?.resume()
     }
